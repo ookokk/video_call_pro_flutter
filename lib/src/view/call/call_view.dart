@@ -22,8 +22,6 @@ class CallView extends StatelessWidget {
         callID: callId,
         controller: callController,
         config: ZegoUIKitPrebuiltCallConfig.oneOnOneVideoCall()
-
-          /// support minimizing
           ..topMenuBarConfig.isVisible = true
           ..topMenuBarConfig.buttons = [
             ZegoMenuBarButtonName.minimizingButton,

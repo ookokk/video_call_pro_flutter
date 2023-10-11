@@ -1,8 +1,4 @@
-import 'dart:convert';
-import 'dart:io';
-import 'package:device_info_plus/device_info_plus.dart';
-// ignore: depend_on_referenced_packages
-import 'package:crypto/crypto.dart';
+import 'dart:math';
 import 'package:video_call_pro/src/const/strings.dart';
 
 class CallModel {
@@ -10,33 +6,30 @@ class CallModel {
   static String appSign = Strings.appSign;
 
   static Future<String> getUniqueUserId() async {
-    String? deviceId;
-    final deviceInfo = DeviceInfoPlugin();
-    if (Platform.isIOS) {
-      final iosDeviceInfo = await deviceInfo.iosInfo;
-      deviceId = iosDeviceInfo.identifierForVendor;
-    } else if (Platform.isAndroid) {
-      final androidDeviceInfo = await deviceInfo.androidInfo;
-      deviceId = androidDeviceInfo.id; // unique ID on Android
-    }
-
-    if (deviceId != null && deviceId.length < 4) {
-      if (Platform.isAndroid) {
-        deviceId += '_android';
-      } else if (Platform.isIOS) {
-        deviceId += '_ios___';
-      }
-    }
-    if (Platform.isAndroid) {
-      deviceId ??= 'flutter_user_id_android';
-    } else if (Platform.isIOS) {
-      deviceId ??= 'flutter_user_id_ios';
-    }
-
-    final userId = md5
-        .convert(utf8.encode(deviceId!))
-        .toString()
-        .replaceAll(RegExp(r'[^0-9]'), '');
-    return userId.substring(userId.length - 6);
+    final random = Random();
+    final userId = random.nextInt(999999).toString().padLeft(6, '0');
+    return userId;
   }
+
+  /*void createCall() {
+    final invitees = [
+      ZegoCallUser("kullanici_id_1", 'Kullanıcı 1'),
+      ZegoCallUser("kullanici_id_2", 'Kullanıcı 2'),
+    ];
+    const isVideoCall = true;
+    const customData = 'Özel veri';
+    const timeoutSeconds = 60;
+
+    callController
+        .sendCallInvitation(
+      invitees: invitees,
+      isVideoCall: isVideoCall,
+      customData: customData,
+      timeoutSeconds: timeoutSeconds,
+    )
+        .then((result) {
+      if (result) {
+      } else {}
+    });
+  }*/
 }
