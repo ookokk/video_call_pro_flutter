@@ -3,10 +3,11 @@ import 'dart:io';
 import 'package:device_info_plus/device_info_plus.dart';
 // ignore: depend_on_referenced_packages
 import 'package:crypto/crypto.dart';
+import 'package:video_call_pro/src/const/strings.dart';
 
 class CallModel {
-  static int appID = 0; //from ZegoCloud
-  static String appSign = ""; //from ZegoCloud
+  static int appID = Strings.appID;
+  static String appSign = Strings.appSign;
 
   static Future<String> getUniqueUserId() async {
     String? deviceId;
