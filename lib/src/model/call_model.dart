@@ -1,5 +1,4 @@
 import 'dart:math';
-import 'package:video_call_pro/src/const/strings.dart';
 
 class CallModel {
   static int appID = Strings.appID;
